@@ -75,7 +75,7 @@ int BSTree::searchr(int value)
 	{
 		return node_val;
 	}
-	else if (node_val < value)
+	else if (node_val > value)
 	{
 		node_val = searchr(value, current->getLeft());
 	}
@@ -95,9 +95,9 @@ int BSTree::searchr(int value, Node *p)
 
 	if (p->getData() == value)
 	{
-		return -1;
+		return p->getData();
 	}
-	else if (p->getData() < value)
+	else if (p->getData() > value)
 	{
 		return searchr(value, p->getLeft());
 	}
@@ -148,6 +148,23 @@ void BSTree::insert(int n)
 	else
 	{
 		trailer->setRight(new_node);
+	}
+}
+
+void BSTree::remove(int value) // not finished
+{
+	Node *walker = new Node;
+	Node *trailer = new Node;
+
+	walker = root;
+	while (walker != nullptr)
+	{
+		trailer = walker;
+		walker->getLeft();
+	}
+
+	if (trailer->getData() == value) // case 1: leaf
+	{
 	}
 }
 
