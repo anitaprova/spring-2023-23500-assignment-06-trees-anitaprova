@@ -29,16 +29,6 @@ std::string BSTree::get_debug_string()
 	return traverse(root);
 }
 
-/*
-	if the BST is full/balanced
-	this will behave like a binary search - remove 1/2
-	the data set each time through
-	so O(lgn) preformance
-
-	IF THE tree isn't full/balanced it degenerates
-	into a linked list and you only get O(n)
-
-*/
 int BSTree::search(int n)
 {
 	Node *current = root;
@@ -151,20 +141,45 @@ void BSTree::insert(int n)
 	}
 }
 
-void BSTree::remove(int value) // not finished
+void BSTree::remove(int n) // delete not finished
 {
-	Node *walker = new Node;
+	Node *current = new Node;
 	Node *trailer = new Node;
+	current = root;
 
-	walker = root;
-	while (walker != nullptr)
+	while (current != nullptr) // getting it to the proper location
 	{
-		trailer = walker;
-		walker->getLeft();
+		trailer = current;
+		int val = current->getData();
+		if (n < val)
+		{
+			current = current->getLeft();
+		}
+		else
+		{
+			current = current->getRight();
+		}
 	}
 
-	if (trailer->getData() == value) // case 1: leaf
+	if (trailer->getLeft() == nullptr && trailer->getRight() == nullptr) // case: leaf
 	{
+		free(trailer);
+	}
+	else if (trailer->getLeft() != nullptr && trailer->getRight() != nullptr) // case 3: two children
+	{
+		//finding largest node on left subtree
+	}
+	else // case 2: one child
+	{
+		if (current->getLeft() != nullptr)
+		{
+			trailer->setLeft(current->getLeft());
+		}
+		else
+		{
+			trailer->setLeft(current->getRight());
+		}
+		free(current);
 	}
 }
 
@@ -238,6 +253,78 @@ int BSTree::oddsum(Node *n)
 int BSTree::oddsum()
 {
 	return oddsum(root);
+}
+
+int BSTree::countLeaves()
+{
+	int total = 0;
+	Node *n = new Node;
+	n = root;
+
+	if (n == nullptr)
+	{
+		return 0;
+	}
+	else
+	{
+		total = total + countLeaves(n->getLeft(), total) + countLeaves(n->getRight(), total);
+	}
+	return total;
+}
+
+int BSTree::countLeaves(Node *n, int total) // helper function
+{
+	if (n->getLeft() == nullptr && n->getRight() == nullptr)
+	{
+		return total + 1;
+	}
+	else
+	{
+		total = total + countLeaves(n->getLeft(), total) + countLeaves(n->getRight(), total);
+	}
+	return total;
+}
+
+int BSTree::height() // not done
+{
+	Node *n = new Node;
+	n = root;
+	int h = 1;
+
+	if (n == nullptr)
+	{
+		return h;
+	}
+
+	int left = height(n->getLeft(), h + 1);
+	int right = height(n->getRight(), h + 1);
+	if (left > right)
+	{
+		return left;
+	}
+	else
+	{
+		return right;
+	}
+}
+
+int BSTree::height(Node *n, int h) // helper function
+{
+	if (n == nullptr)
+	{
+		return h - 1;
+	}
+
+	int left = height(n->getLeft(), h + 1);
+	int right = height(n->getRight(), h + 1);
+	if (left > right)
+	{
+		return left;
+	}
+	else
+	{
+		return right;
+	}
 }
 
 void BSTree::setup()

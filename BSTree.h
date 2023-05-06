@@ -24,7 +24,9 @@ public:
 
 	int searchr(int value);
 	int searchr(int value, Node *n);
-	void remove(int value);
-	//  int countLeaves();
-	//  int height();
+	void remove(int n);
+	int countLeaves();
+	int countLeaves(Node *n, int total); //helper function 
+	int height();
+	int height(Node *n, int height); //helper function
 };

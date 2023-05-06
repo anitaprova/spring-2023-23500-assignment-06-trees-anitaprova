@@ -12,6 +12,8 @@ int main()
 	std::cout << b->searchr(30) << "\n";
 	std::cout << b->searchr(69) << "\n"; //-1
 	std::cout << b->searchr(8) << "\n";
+	std::cout << "leaves: " << b->countLeaves() << "\n";
+	std::cout << "height: " << b->height() << "\n";
 
 	return 0;
 }
