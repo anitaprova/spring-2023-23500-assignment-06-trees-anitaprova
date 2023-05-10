@@ -143,31 +143,53 @@ void BSTree::insert(int n)
 
 void BSTree::remove(int n) // delete not finished
 {
-	Node *current = new Node;
-	Node *trailer = new Node;
-	current = root;
+	Node *current = root;
+	Node *trailer = nullptr;
 
 	while (current != nullptr) // getting it to the proper location
 	{
-		trailer = current;
 		int val = current->getData();
-		if (n < val)
+		if (n == val)
 		{
+			break;
+		}
+		else if (n < val)
+		{
+			trailer = current;
 			current = current->getLeft();
 		}
 		else
 		{
+			trailer = current;
 			current = current->getRight();
 		}
 	}
 
-	if (trailer->getLeft() == nullptr && trailer->getRight() == nullptr) // case: leaf
+	if (current->getLeft() == nullptr && current->getRight() == nullptr) // case: leaf
 	{
-		free(trailer);
+		delete current;
 	}
-	else if (trailer->getLeft() != nullptr && trailer->getRight() != nullptr) // case 3: two children
+	else if (current->getLeft() != nullptr && current->getRight() != nullptr) // case 3: two children
 	{
-		//finding largest node on left subtree
+		// finding largest node on left subtree
+		Node *w = new Node;
+		Node *t = new Node;
+		w = current;
+		int large = w->getData(); // initial value so it isnt null
+		while (w != nullptr)
+		{
+			if (w->getData() > large)
+			{
+				large = w->getData();
+				t = w;
+			}
+			w->getLeft();
+		}
+		// replacing
+		current->setData(large);
+
+		// freeing minimum
+		free(w);
 	}
 	else // case 2: one child
 	{
