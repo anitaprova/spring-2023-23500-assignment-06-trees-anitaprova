@@ -16,6 +16,14 @@ TEST_CASE("delete")
 {
 	BSTree *d = new BSTree;
 	d->setup();
+	d->remove(15); //leaf case
+	CHECK(d->get_debug_string() == ", 3, , 5, , 8, , 10, , 20, , 30, ");
+
+	d->remove(20); //one child case
+	CHECK(d->get_debug_string() == ", 3, , 5, , 8, , 10, , 30, ");
+	
+	d->remove(5); //two child case 
+	CHECK(d->get_debug_string() == ", 3, , 8, , 10, , 30, ");
 }
 
 TEST_CASE("countLeaves")

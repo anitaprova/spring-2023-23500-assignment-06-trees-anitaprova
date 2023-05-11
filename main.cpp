@@ -15,7 +15,9 @@ int main()
 	std::cout << b->get_debug_string() << "\n";
 	std::cout << "leaves: " << b->countLeaves() << "\n";
 	std::cout << "height: " << b->height() << "\n";
-	b->remove(15);
+	b->remove(15); // leaf
+	b->remove(20); //one child
+	b->remove(5);
 	std::cout << b->get_debug_string() << "\n";
 
 	return 0;
