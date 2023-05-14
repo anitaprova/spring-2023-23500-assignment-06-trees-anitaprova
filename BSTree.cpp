@@ -196,7 +196,6 @@ void BSTree::remove(int n)
 		// replacing
 		current->setData(large);
 		current->setLeft(nullptr);
-
 	}
 	else // case 2: one child
 	{
@@ -294,6 +293,18 @@ int BSTree::countLeaves()
 	{
 		return 0;
 	}
+	else if (n->getLeft() == nullptr && n->getRight() == nullptr) // head is a leaf
+	{
+		return 1;
+	}
+	else if (n->getLeft() == nullptr)
+	{
+		total = total + countLeaves(n->getRight(), total);
+	}
+	else if (n->getRight() == nullptr)
+	{
+		total = total + countLeaves(n->getLeft(), total);
+	}
 	else
 	{
 		total = total + countLeaves(n->getLeft(), total) + countLeaves(n->getRight(), total);
@@ -314,19 +325,33 @@ int BSTree::countLeaves(Node *n, int total) // helper function
 	return total;
 }
 
-int BSTree::height() // not done
+int BSTree::height()
 {
 	Node *n = new Node;
 	n = root;
-	int h = 1;
+	int h = 0;
 
 	if (n == nullptr)
 	{
 		return h;
 	}
+	else if (n->getLeft() == nullptr && n->getRight() == nullptr) // leaf
+	{
+		return h + 1;
+	}
 
-	int left = height(n->getLeft(), h + 1);
-	int right = height(n->getRight(), h + 1);
+	int left = 0;
+	int right = 0;
+	if (n->getLeft() != nullptr)
+	{
+		left = height(n->getLeft(), h + 1);
+	}
+
+	if (n->getRight() != nullptr)
+	{
+		right = height(n->getRight(), h + 1);
+	}
+
 	if (left > right)
 	{
 		return left;
@@ -341,7 +366,7 @@ int BSTree::height(Node *n, int h) // helper function
 {
 	if (n == nullptr)
 	{
-		return h - 1;
+		return h;
 	}
 
 	int left = height(n->getLeft(), h + 1);
