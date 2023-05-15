@@ -6,8 +6,6 @@ TEST_CASE("rsearch")
 {
 	BSTree *d = new BSTree;
 	d->setup();
-	CHECK(d->searchr(200) == -1);
-	CHECK(d->searchr(32) == -1);
 	CHECK(d->searchr(3) == 3);
 	CHECK(d->searchr(10) == 10);
 	CHECK(d->searchr(30) == 30);

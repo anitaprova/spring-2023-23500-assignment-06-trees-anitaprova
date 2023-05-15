@@ -57,7 +57,7 @@ int BSTree::searchr(int value)
 	Node *current = root;
 	if (current == nullptr)
 	{
-		return -1;
+		throw ERR_EMPTY;
 	}
 
 	int node_val = current->getData();
@@ -80,7 +80,7 @@ int BSTree::searchr(int value, Node *p)
 {
 	if (p == nullptr)
 	{
-		return -1;
+		throw NOT_FOUND;
 	}
 
 	if (p->getData() == value)

@@ -6,11 +6,39 @@
 int main()
 {
 	BSTree *b = new BSTree;
+
+	try
+	{
+		std::cout << b->searchr(10) << "\n";
+	}
+	catch (int e)
+	{
+		std::cout << "error code: " << e << "\n";
+	}
+
 	b->setup();
 	std::cout << b->searchr(10) << "\n";
 	std::cout << b->searchr(20) << "\n";
 	std::cout << b->searchr(30) << "\n";
-	std::cout << b->searchr(69) << "\n"; //-1
+
+	try
+	{
+		std::cout << b->searchr(69) << "\n";
+	}
+	catch (int e)
+	{
+		std::cout << "error code: " << e << "\n";
+	}
+
+	try
+	{
+		std::cout << b->searchr(200) << "\n";
+	}
+	catch (int e)
+	{
+		std::cout << "error code: " << e << "\n";
+	}
+
 	std::cout << b->searchr(8) << "\n";
 	std::cout << b->get_debug_string() << "\n";
 	std::cout << "leaves: " << b->countLeaves() << "\n";

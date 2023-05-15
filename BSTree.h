@@ -3,6 +3,10 @@
 #include <stdio.h>
 #include "Node.h"
 
+#define ERR_EMPTY 1
+#define NOT_FOUND 2
+#define ERR_OTHER 4
+
 class BSTree
 {
 private:
